@@ -1,7 +1,7 @@
 # Day to Night Skyline Image Translation Using CycleGAN 
-Project Members: Rohan Vasishth and Aarman Pannu
+Rohan Vasishth and Aarman Pannu
 
-Project Objective: Our project’s objective was to use the CycleGAN for an image-to-image translation to translate between day and night images. In order to do this, we leveraged a day night [dataset](https://www.kaggle.com/datasets/heonh0/daynight-cityview/data?select=day) of city skylines.
+Objective: Our project’s objective was to use the CycleGAN for an image-to-image translation to translate between day and night images. In order to do this, we leveraged a day night [dataset](https://www.kaggle.com/datasets/heonh0/daynight-cityview/data?select=day) of city skylines.
 
 # Sample Results
 ![night_image_pair_15](https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/b2960aba-d2d5-42cd-a0fc-5ebf7b22be72)
