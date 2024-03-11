@@ -1,22 +1,30 @@
-<p align="center"> 
 # Day to Night Skyline Image Translation Using CycleGAN 
 Project Members: Rohan Vasishth and Aarman Pannu
-</p>
 
 Project Objective: Our project’s objective was to use the CycleGAN for an image-to-image translation to translate between day and night images. In order to do this, we leveraged a day night [dataset](https://www.kaggle.com/datasets/heonh0/daynight-cityview/data?select=day) of city skylines.
 
-Project Methods: Similar to the approach of the main [CycleGAN paper](https://arxiv.org/pdf/1703.10593.pdf), we leverage a generator and discriminator approach to translate between the day and night images. We have five main components: data loading, the discriminator model, the generator model, training the model, and getting the results.
+# Sample Results
+![night_image_pair_15](https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/b2960aba-d2d5-42cd-a0fc-5ebf7b22be72)
+![day_image_pair_18](https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/620e008a-fe01-48e5-9fe1-717b0de667d3)
+![day_image_pair_27](https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/9a3fbbda-d9af-4e41-a1a9-4eac99c54967)
+![night_image_pair_12](https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/9325b3c8-f230-419e-a70b-d823907a17c0)
 
-# Data Loading
+
+# Project Methods
+Similar to the approach of the main [CycleGAN paper](https://arxiv.org/pdf/1703.10593.pdf), we leverage a generator and discriminator approach to translate between the day and night images. We have five main components: data loading, the discriminator model, the generator model, training the model, and getting the results.
+
+Data Loading
 	Our Data Loading class loads the DayNight Dataset that contains paths to the root directory of the day images folder and one to the night images folder. Our dataset had 227 Night Images and 522 Day Images. We split our dataset, into training which contains 488 day images for training, 208 night images for training, 34 day images for testing, and 19 night images testing. Because the training set of day images is over twice as big as the night images for training, we index the night images modulo the size of the night images. This means that we overrepresent the night-images in training, although this did not lead to a significant decrease in evaluation. Additionally, the paper had this issue as well for its datasets, and it did not appear to be a problem.
 Additionally, we apply standard transformations on the images as seen in the paper. We resize the images to 256x256 pixels, randomly applying a horizontal flip (with probability 0.5), and normalizing the image before turning it into a tensor.
 The paper describes using a batch_size of 1, which although we tried using a larger batch size ran into memory issues as it was not able to store more images for training purposes.
 
-# Building the Discriminator
+Building the Discriminator
 To start, the high level purpose of our discriminator was to be able to identify whether an image was a real or fake day/night image. By doing this, our generator could generate better image translation results. The following diagram illustrates the role of the discriminator and is inspired by figure 3 from the official CycleGAN paper:
 
 <p align="center">
 <img width="214" alt="Screenshot 2024-03-11 at 12 24 21 PM" src="https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/02bf4d7f-2e04-4c85-895d-aec7f03d9b72">
+</p>
+<p align="center">
 Figure 1. Discriminator Role in Model
 </p>
 
@@ -24,6 +32,8 @@ DD distinguishes between a real or fake day image. DN distinguishes between a re
 
 <p align="center">
 <img width="358" alt="Screenshot 2024-03-11 at 12 24 40 PM" src="https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/49453406-d504-417f-ab26-4e77902c0cd7">
+</p>
+<p align="center">
 Figure 2. Discriminator Architecture
 </p>
 
@@ -32,6 +42,8 @@ The generator model’s primary purpose was to translate day images into night i
 
 <p align="center">
 <img width="247" alt="Screenshot 2024-03-11 at 12 24 59 PM" src="https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/9ea681b6-ded5-4611-87d2-c23e0ca188ba">
+</p>
+<p align="center">
 Figure 3. Leveraging Generators to Translate Between Day and Night Images
 </p>
 
@@ -39,6 +51,8 @@ The architecture of our generator has 3 components: encoder blocks, residual blo
 
 <p align="center">
 <img width="380" alt="Screenshot 2024-03-11 at 12 25 18 PM" src="https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/0186406a-7255-4200-80fb-6f2924b753a9">
+</p>
+<p align="center">
 Figure 4. Generator Architecture
 </p>
 
@@ -47,6 +61,8 @@ To train our model, we used two discrimantors and two generators (one for day an
 
 <p align="center">
 <img width="559" alt="Screenshot 2024-03-11 at 12 25 36 PM" src="https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/f3d7d7b1-6bf5-486b-ad5a-8405578bea4c">
+</p>
+<p align="center">
 Figure 5. Computing Generator Loss
 </p>
 
@@ -56,9 +72,14 @@ Here is a small fragment of our results. In the first image, we go from an origi
 
 <p align="center">
 Real Day | Generated Night from Real Day | Generated Day from Generated Night
+</p>
+<p align="center">
 <img width="418" alt="Screenshot 2024-03-11 at 12 30 46 PM" src="https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/af26c7c4-8725-42d6-b207-115dc2236f72">
-
+</p>
+<p align="center">
 Real Night | Generated Day from Real Night | Generated Night from Generated Day
+</p>
+<p align="center">
 <img width="422" alt="Screenshot 2024-03-11 at 12 29 48 PM" src="https://github.com/aarmanpannu/CycleGan_Day_Night/assets/112771299/3c642504-ec70-4f9b-817a-1e9fade369d7">
 </p>
 
